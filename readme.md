@@ -71,10 +71,14 @@
 - `생성`
 
   ```zsh
-  django-admin startpoject [프로젝트 이름]
+  django-admin startpoject [프로젝트 이름] [경로]
   ```
 
   <img src="readme.assets/startproject.png" style="zoom:50%;" />
+
+  - 경로 입력은 선택 사항
+    - `.` 명령어로 현재 디렉터리 안에 프로젝트를 생성
+    - `.`을 입력하지 않으면 `[프로젝트 이름]` 디렉터리 안에 또 `[프로젝트 이름]`으로 된 디렉터리 생성 후 프로젝트가 생성 됨
 
 - `실행`
 
