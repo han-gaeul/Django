@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container p-5">
+    <div class="w-100  p-3 mb-5 shadow-sm">
+      <div class="d-flex flex-column align-items-center mt-5">
+        <div class="mb-5 d-flex flex-column align-items-center">
+          <a href="/previous-life"><button class="btn btn-light">랜덤 전생</button></a>
+        </div>
+        <div class="mb-5 d-flex flex-column align-items-center">
+          <a href="/calculator/1/1"><button class="btn btn-light">[URL] 사칙연산</button></a>
+        </div>
+        <div class="mb-5 d-flex flex-column align-items-center">
+          <a href="/is-odd-even/1"><button class="btn btn-light">[URL] 짝수/홀수 확인</button></a>
+        </div>
+        <div class="mb-5 d-flex flex-column align-items-center">
+          <a href="/lorem"><button class="btn btn-light">lorem ipsum 한글 버전</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
