@@ -82,7 +82,7 @@
 
 - `실행`
 
-  ```zsh
+  ```python
   python3 manage.py runserver
   ```
 
@@ -93,5 +93,11 @@
     - 아래 이미지처럼 나오면 제대로 실행된 것
 
   <img src="readme.assets/Screenshot.JPG" style="zoom:50%;" />
+
+- `App 생성`
+
+  ```python
+  python3 manage.py startapp [App 이름]
+  ```
 
   
