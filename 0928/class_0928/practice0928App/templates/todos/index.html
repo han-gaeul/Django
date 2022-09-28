@@ -4,18 +4,37 @@
 <!-- 사용자에게 정보를 입력 받을 때 -->
 <!-- form 태그를 사용 -->
 <!-- action : 어떤 url을 요청할지 -->
-<form action="{% url 'todos:create' %}">
-    <input type="text" name="content" maxlength="80">
-    <input type="submit" value="할 일 추가">
-</form>
+<div class="d-flex container">
+    <form action="{% url 'todos:create' %}" class="row">
+        <div class="input-group mb-3 mt-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">할 일</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="content" maxlength="80">
+        </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">우선 순위</label>
+            <select class="form-select" id="inputGroupSelect01">
+                <option selected>✔️</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">마감 기한</span>
+            <input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <input type="submit" class="mt-1 btn btn-link border-primary" value="할 일 추가">
+    </form>
+</div>
 <hr>
-<!-- DTL for문 사용 -->
-<ul>
+<div class="container">
     {% for todo in todos %}
     <li>
-        {{ todo.pk }} {{ todo.content }} {{ todo.completed }}
+        {{ todo.pk }} {{ todo.content }} {{ todo.completed }} {{ todo.created_at }} {{ todo.deadline }} {{ todo.priority }}
         <a href="{% url 'todos:delete' todo.pk %}">삭제</a>
     </li>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}

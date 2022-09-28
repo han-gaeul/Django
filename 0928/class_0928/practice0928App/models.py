@@ -1,4 +1,5 @@
 from email.policy import default
+from pyexpat import model
 from django.db import models
 
 # Create your models here.
@@ -11,3 +12,7 @@ class Todo(models.Model):
     # defalut : 데이터를 생성할 때 값을 넣지 않으면
     # 자동으로 값을 채워서 데이터를 생성 하겠다는 의미
     completed = models.BooleanField(default=False)
+
+    priority = models.IntegerField(default=3)
+    created_at = models.DateField(auto_now_add=True)
+    deadline = models.DateField(null=True)
