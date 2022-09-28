@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- 사용자에게 정보를 입력 받을 때 -->
+<!-- form 태그를 사용 -->
+<!-- action : 어떤 url을 요청할지 -->
+<form action="{% url 'todos:create' %}">
+    <input type="text" name="content" maxlength="80">
+    <input type="submit" value="할 일 추가">
+</form>
+<hr>
+<!-- DTL for문 사용 -->
+<ul>
+    {% for todo in todos %}
+    <li>
+        {{ todo.pk }} {{ todo.content }} {{ todo.completed }}
+        <a href="{% url 'todos:delete' todo.pk %}">삭제</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
