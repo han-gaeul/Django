@@ -45,7 +45,13 @@ def detail(request, pk):
 
 def update(request, pk):
     article = Article.objects.get(pk=pk)
-    article_form = ArticleForm(instance=article)
+    if request.method == 'POST':
+        article_form = ArticleForm(request.POST, instance=article)
+        if article_form.is_valid():
+            article_form.save()
+            redirect('articles:detail', article.pk)
+    else:
+        article_form = ArticleForm(instance=article)
     context = {
         'article_form' : article_form
     }
