@@ -1,9 +1,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ article.title }}</h1>
-<p>작성한 시간 : {{ article.created_at }} | 수정한 시간 : {{ article.updated_at }}</p>
-<p>{{ article.content }}</p>
-<a href="{% url 'articles:update' article.pk %}">수정</a>
-<a href="{% url 'articles:delete' article.pk %}">삭제</a>
+<!-- top -->
+<div class="container">
+    <h3 class="my-3">{{ article.title }}</h3>
+    <div class="d-flex justify-content-end my-3">
+        <a href="{% url 'articles:update' article.pk %}" class="mx-1">
+            <div class="btn btn-outline-secondary">
+                <span class="text-dark">수정</span>
+            </div>
+        </a>
+        <a href="{% url 'articles:delete' article.pk %}">
+            <div class="btn btn-outline-secondary">
+                <span class="text-dark">삭제</span>
+            </div>
+        </a>    
+    </div>
+</div>
+<hr>
+
+<!-- body -->
+<div class="container">
+    <p>{{ article.content }}</p>
+</div>
+
+<!-- bottom -->
+<div class="container d-flex justify-content-end">
+    <div class="position-fixed bottom-0  flex-column ">
+        <p class="text-muted">작성 시간 : {{ article.created_at }}</p>
+        <p class="text-muted">수정 시간 : {{ article.updated_at }}</p>
+    </div>
+</div>
 {% endblock %}
