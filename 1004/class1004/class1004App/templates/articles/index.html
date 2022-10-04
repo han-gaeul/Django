@@ -1,11 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>게시판</h1>
-<a href="{% url 'articles:create' %}">글 작성하기</a>
-{% for article in articles %}
-    <p><a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a></ㅔ>
-    <p>{{ article.created_at }} | {{ article.updated_at }}</p>
-    <hr>
-{% endfor %}
+<!-- nav -->
+<div class="container">
+    <h1 class="d-flex justify-content-center mt-3">게시판</h1>
+    <div class="d-flex justify-content-end my-3">
+        <a href="{% url 'articles:create' %}">
+            <div class="btn btn-primary">
+                <span>글 작성하기</span>
+                <i class="bi bi-pencil-square"></i>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- card -->
+<div class="card">
+    {% for article in articles %}
+    <a href="{% url 'articles:detail' article.pk %}" class="text-decoration-none m-3">
+        <div class="container bg-light rounded-3 pt-3 pb-2 text-black">
+            <p class="p-3 mb-3">{{ article.title }}</p>
+            <p class="d-flex justify-content-end text-muted">작성 시간 : {{ article.created_at }}</p>
+            <p class="d-flex justify-content-end text-muted">수정 시간 : {{ article.updated_at }}</p>
+        </div>
+    </a>
+    {% endfor %}
+</div>
 {% endblock %}
