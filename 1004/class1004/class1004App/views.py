@@ -42,3 +42,11 @@ def detail(request, pk):
         'article' : article
     }
     return render(request, 'articles/detail.html', context)
+
+def update(request, pk):
+    article = Article.objects.get(pk=pk)
+    article_form = ArticleForm(instance=article)
+    context = {
+        'article_form' : article_form
+    }
+    return render(request, 'articles/update.html', context)
