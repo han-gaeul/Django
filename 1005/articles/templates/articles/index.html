@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>index</h1>
+{% load static %}
+
+<h1>index page</h1>
+<img src="{% static 'images/chicken.jpg' %}" alt="chicken">
+<a href="{% url 'articles:create' %}">작성</a>
+{% for article in articles %}
+<a href="{% url 'articles:detail' article.pk %}">
+    <h4>{{ article.title }}</h4>
+</a>
+<p>{{ article.created_at }}</p>
+<p>{{ article.updated_at }}</p>
+{% endfor %}
+
 {% endblock %}

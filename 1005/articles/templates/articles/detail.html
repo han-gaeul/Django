@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load django_bootstrap5 %}
+
+<h1>detail page</h1>
+<h4>{{ article.title }}</h4>
+<p>{{ article.content }}</p>
+<a href="{% url 'articles:update' article.pk %}">수정</a>
+<a href="{% url 'articles:delete' article.pk %}">삭제</a>
+<p>{{ article.created_at }}</p>
+<p>{{ article.updated_at }}</p>
+
+{% endblock %}
