@@ -35,12 +35,26 @@ def create(request):
     context = {
         'movies_form' : movies_form
     }
-    return render(request, 'movies/create.html', context=context)
+    return render(request, 'movies/form.html', context=context)
 
 # 영화 데이터 수정
 def update(request, pk):
-    movie = Movie.objects.get()
-    return render(request, 'movies/update.html')
+    movie = Movie.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        movies_form = MovieForm(request.POST, instance=movie)
+
+        if movies_form.is_valid():
+            movies_form.save()
+            return redirect('movie:detail', movie.pk)
+
+    else:
+        movies_form = MovieForm(instance=movie)
+    
+    context = {
+        'movies_form' : movies_form
+    }
+    return render(request, 'movies/form.html', context)
 
 # 영화 데이터 삭제
 def delete(request, pk):

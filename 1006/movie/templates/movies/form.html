@@ -22,22 +22,17 @@
   <hr>
 
   <!-- body -->
-  <div class="container">
-    <img src="{% static 'images/IMG_0332.jpg' %}" alt="logo" width="500" height="500" class="d-block m-auto border border-gray rounded-3">
-    <table class="table text-center align-middle mt-5">
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>러닝 타임</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for movie in movies %}
-          <a href="{% url 'movie:detail' movie.pk %}">
-            <h4>{{ movie.title }}</h4>
-          </a>
-        {% endfor %}
-      </tbody>
-    </table>
+  <!-- <h1 class="container text-center">작성하기</h1> -->
+
+  <div class="container text-center">
+    {% if request.path == '/create/' %}
+      <h1>작성하기</h1>
+    {% elif request.path == '/update/' %}
+      <h1>수정하기</h1>
+    {% endif %}
+    <form action="{% url 'movie:movies' %}" class="form-control  border border-white">
+      {% csrf_token %}
+      {% bootstrap_form movies_form %}
+      <input type="submit" value="등록" class="btn btn-outline-secondary text-dark">
+    </form>
   </div>
