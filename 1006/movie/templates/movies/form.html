@@ -30,7 +30,7 @@
     {% elif request.path == '/update/' %}
       <h1>수정하기</h1>
     {% endif %}
-    <form action="{% url 'movie:movies' %}" class="form-control  border border-white">
+    <form action="{% url 'movie:movies' %}" class="form-control  border border-white" method="POST">
       {% csrf_token %}
       {% bootstrap_form movies_form %}
       <input type="submit" value="등록" class="btn btn-outline-secondary text-dark">
