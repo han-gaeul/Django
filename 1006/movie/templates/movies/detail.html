@@ -1,0 +1,27 @@
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+
+<nav class="navbar navbar-light navbar-expand-lg">
+  <div class="container-fluid">
+    <!-- logo -->
+    <a href="{% url 'movie:movies' %}" class="navbar-brand">
+      <img src="{% static 'images/logo.png' %}" alt="logo" width="100" height="100" class="border border-gray rounded-3">
+    </a>
+
+    <!-- list -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active fs-5" aria-current="page" href="{% url 'movie:movies' %}">목록</a>
+        <a class="nav-link active fs-5" href="{% url 'movie:create' %}">추가</a>
+      </div>
+    </div>
+  </nav>
+  <hr>
+
+  <div class="container">
+    <p>{{ movie.content }}</p>
+  </div>
+
+  <div class="container d-flex justify-content-end"></div>
