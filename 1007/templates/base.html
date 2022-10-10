@@ -1,4 +1,5 @@
 {% load static %}
+{% load django_bootstrap5 %}
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,8 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies Review</title>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <style>
       * {
         font-family: "Noto Sans KR", sans-serif;
@@ -19,22 +20,25 @@
 
   <body>
     <!-- nav -->
-    <nav class="navbar navbar-expand-lg bg-ligth px-5">
+    <nav class="navbar navbar-light navbar-expand-lg">
       <div class="container-fluid">
-        <a href="/movies" class="navbar-brand">Movie</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-tooler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse"></div>
-      </div>
-    </nav>
+        <!-- logo -->
+        <a href="{% url 'movie:movies' %}" class="navbar-brand">
+          <img src="{% static 'images/logo.png' %}" alt="logo" width="100" height="100" class="border border-gray rounded-3">
+        </a>
 
-    <!-- content -->
-    {% block content %}{% endblock %}
+        <!-- list -->
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="{% url 'movie:movies' %}">목록</a>
+            <a class="nav-link active" href="{% url 'movie:create' %}">추가</a>
+          </div>
+        </div>
+      </nav>
 
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      <!-- content -->
+      {% block content %}{% endblock %}
 
-  </body>
+    </body>
 
-</html>
+  </html>
