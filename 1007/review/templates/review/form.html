@@ -1,0 +1,18 @@
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+
+<div class="containder text-center">
+  {% if request.path == '/create/' %}
+    <h1>리뷰 작성</h1>
+  {% elif request.path == '/update/' %}
+    <h1>리뷰 수정</h1>
+  {% endif %}
+
+  <form action="{% url 'review:index' %}" method="POST" class="form-control border border-white">
+    {% csrf_token %}
+    {% bootstrap_form reviews_form %}
+    <input type="submit" value="등록" class="btn btn-outline-secondary text-black">
+  </form>
+</div>
