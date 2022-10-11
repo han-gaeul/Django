@@ -10,7 +10,7 @@
 
   <body>
     <h1>작성</h1>
-    <form action="{% url 'articles:create' %}" method="POST">
+    <form action="" method="POST">
       {% csrf_token %}
       {{ article_form.as_p }}
       <textarea name="content" id="content" cols="30" rows="10" required="required"></textarea>
