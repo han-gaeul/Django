@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 # from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm
+from django.contrib.auth import get_user_model
 
 # Create your views here.
 def signip(request):
@@ -13,8 +14,15 @@ def signip(request):
 
     else:
         form = CustomUserCreationForm()
-        
+
     context = {
         'form' : form
     }
     return render(request, 'accounts/signup.html', context)
+
+def detail(request, pk):
+    user = get_user_model().objects.get(pk=pk)
+    context = {
+        'user' : user
+    }
+    return render(request, 'acoounts/detail.html', context)
