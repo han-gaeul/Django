@@ -4,7 +4,7 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth import get_user_model
 
 # Create your views here.
-def signip(request):
+def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
 
