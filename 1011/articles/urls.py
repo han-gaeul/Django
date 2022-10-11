@@ -8,4 +8,5 @@ urlpatterns = [
     # path('new/', views.new, name='new'),
     path('create/', views.create, name='create'),
     path('<int:pk>/', views.detail, name='detail'),
+    path('<int:pk>/update/', views.update, name='update'),
 ]
