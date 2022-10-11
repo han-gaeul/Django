@@ -10,7 +10,8 @@
 
   <body>
     <h1>작성</h1>
-    <form action="{% url 'articles:create' %}">
+    <form action="{% url 'articles:create' %}" method="POST">
+      {% csrf_token %}
       <label for="title">제목</label>
       <input type="text" name="title" id="title">
       <label for="content">내용</label>
