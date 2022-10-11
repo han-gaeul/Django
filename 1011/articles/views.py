@@ -10,9 +10,6 @@ def index(request):
     }
     return render(request, 'articles/index.html', context)
 
-def new(request):
-    return render(request, 'articles/new.html')
-
 def create(request):
     if request.method == 'POST':
         article_form = ArticleForm(request.POST)
@@ -27,7 +24,7 @@ def create(request):
     context = {
         'article_form' : article_form
     }
-    return render(request, 'articles/new.html', context=context)
+    return render(request, 'articles/form.html', context=context)
 
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
@@ -52,4 +49,4 @@ def update(request, pk):
     context = {
         'article_form' : article_form
     }
-    return render(request, 'articles/update.html', context)
+    return render(request, 'articles/form.html', context)
