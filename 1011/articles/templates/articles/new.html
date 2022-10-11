@@ -9,12 +9,15 @@
   </head>
 
   <body>
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <h1>작성</h1>
     <form action="" method="POST">
       {% csrf_token %}
-      {{ article_form.as_p }}
+      {{ bootstrap_form article_form }}
       <textarea name="content" id="content" cols="30" rows="10" required="required"></textarea>
-      <input type="submit" value="등록">
+      {% bootstrap_button button_type = "submit" content = "OK" %}
     </form>
   </body>
 
