@@ -1,0 +1,29 @@
+<!-- 회원 목록 페이지 -->
+
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block body %}
+  <div class="col-lg-9 col-md-12 px-5 mb-3">
+    <table class="table">
+      <thead class='table-light'>
+        <tr>
+          <th>번호</th>
+          <th>사용자 이름</th>
+          <th>이메일</th>
+        </tr>
+      </thead>
+      <tbody class='table-group-divider'>
+        {% for account in accounts %}
+          <tr>
+            <th>{{ account.pk }}</th>
+            <th>
+              <a href="{% url 'accounts:detail' account.pk %}">{{ account.username }}</a>
+            </th>
+            <th>{{ account.email }}</th>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock body %}
