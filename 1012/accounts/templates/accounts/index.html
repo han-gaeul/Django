@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block body %}
+  <a href="{% url 'accounts:signup' %}" class="text-white text-decoration-none text-center">
+    <button class="btn btn-primary d-flex flex-column mt-3 col-12">회원 가입</button>
+  </a>
+  <a href="{% url 'accounts:accounts' %}" class="text-white text-decoration-none">
+    <button class="btn btn-primary d-flex flex-column mt-3 col-12">회원 목록</button>
+  </a>
+{% endblock %}
