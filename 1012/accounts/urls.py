@@ -16,4 +16,6 @@ urlpatterns = [
     # 회원 조회 페이지 (프로필)
     # http://127.0.0.1:8000/accounts/<user_pk>/
     path('detail/<int:pk>', views.detail, name='detail'),
+    # 로그인
+    path('login/', views.login, name='login'),
 ]
