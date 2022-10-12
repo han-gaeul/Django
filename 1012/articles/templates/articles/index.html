@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block body %}
+  <h1>게시판</h1>
+  <img src="{% static 'images/logo.png' %}" alt="">
+  <a href="{% url 'articles:create' %}">작성</a>
+  {% for article in articles %}
+    <h4>
+      <a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
+    </h4>
+    <p>{{ article.content }}</p>
+    <hr>
+  {% endfor %}
+{% endblock %}
