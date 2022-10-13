@@ -20,9 +20,9 @@ def create(request):
             article_form.save()
             return redirect('articles:index')
     else:
-        article_from = ArticleForm()
+        article_form = ArticleForm()
     context = {
-        'article_from' : article_form
+        'article_form' : article_form
     }
     return render(request, 'articles/form.html', context)
 
