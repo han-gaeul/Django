@@ -7,9 +7,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 
 # Create your views here.
-def index(request):
-    return render(request, 'accounts/index.html')
-
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
