@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 
 {% block body %}
-  <h1>프로필</h1>
-  <div class="mb-3 mt-3">
-    <label for="userpk" class="form-label">번호</label>
-    <p class="form-control" name="content" id="userpk" disaled="disaled" readonly="readonly">{{ user.pk }}</p>
-  </div>
+  <h1>{{ user.username }}프로필</h1>
   <div class="mb-3 mt-3">
     <label for="username" class="form-label">사용자 이름</label>
+    <p>{{ user.email }}
+      |
+      {{ user.full_name }}</p>
     <p class="form-control" name="content" id="username" disaled="disaled" readonly="readonly">{{ user.pk }}</p>
   </div>
 {% endblock body %}
