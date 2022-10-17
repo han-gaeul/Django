@@ -9,7 +9,7 @@
       {% endif %}
       <p class="me-5 mt-3">{{ article.content }}</p>
     </div>
-    <div class="text-end mt-3">
+    <div class="text-end mt-3 mb-5">
       <a href="{% url 'articles:index' %}" class="btn btn-light">목록</a>
       <a href="{% url 'articles:update' article.pk %}" class="btn btn-light">수정</a>
       <a href="{% url 'articles:delete' article.pk %}" class="btn btn-danger">삭제</a>
