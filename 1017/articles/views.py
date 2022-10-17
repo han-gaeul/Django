@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.contrib import messages
 from .forms import ArticleForm
 from .models import Article
 
@@ -12,9 +13,10 @@ def index(request):
 
 def create(request):
     if request.method == 'POST':
-        article_form = ArticleForm(request.POST)
+        article_form = ArticleForm(request.POST, request.FILES)
         if article_form.is_valid():
             article_form.save()
+            messages.success(request, '작성이 완료 되었습니다.')
             return redirect('articles:index')
     else:
         article_form = ArticleForm()
@@ -33,9 +35,10 @@ def detail(request, pk):
 def update(request, pk):
     article = Article.objects.get(pk=pk)
     if request.method == 'POST':
-        article_form = ArticleForm(request.POST, instance=article)
+        article_form = ArticleForm(request.POST, request.FILES, instance=article)
         if article_form.is_valid():
             article_form.save()
+            messages.success(request, '수정 되었습니다.')
             return redirect('articles:detail', article.pk)
     else:
         article_form = ArticleForm(instance=article)
@@ -45,5 +48,6 @@ def update(request, pk):
     return render(request, 'articles/form.html', context)
 
 def delete(request, pk):
-    Article.objects.get(pk=pk).delete()
+    article = Article.objects.get(pk=pk)
+    article.delete()
     return redirect('articles:index')

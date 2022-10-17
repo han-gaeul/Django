@@ -9,16 +9,23 @@
       </li>
     </ul>
   </nav>
-  <div class="container">
-    <h1>게시판</h1>
-    <a href="{% url 'articles:create' %}">작성</a>
+  <h1>게시판</h1>
+  <a href="{% url 'articles:create' %}">작성</a>
+  <div class="row">
     {% for article in articles %}
-      <h4>
-        <a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
-      </h4>
-      <p>{{ article.created_at }}
+      <div class="col-4">
+        <div class="card">
+          <img src="{{ article.image.url }}" alt="" class="card-img-top">
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
+            </h4>
+          </div>
+        </div>
+      </div>
+      {% comment %} <p>{{ article.created_at }}
         |
-        {{ article.updated_at }}</p>
+        {{ article.updated_at }}</p> {% endcomment %}
       <hr>
     {% endfor %}
   </div>
