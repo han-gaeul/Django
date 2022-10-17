@@ -5,7 +5,7 @@
     <h1 class="fw-bold">{{ article.title }}</h1>
     <div>
       {% if article.image.url %}
-        <img src="{{ article.image.url }}" alt="{{ article.image }}" width="500" height="500">
+        <img src="{{ article.image.url }}" alt="{{ article.image }}" width="100%" height="100%">
       {% endif %}
       <p class="me-5 mt-3">{{ article.content }}</p>
     </div>
