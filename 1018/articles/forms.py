@@ -1,7 +1,5 @@
-from dataclasses import field
 from django import forms
-from django import forms
-from .models import Article
+from .models import Article, Comment
 
 class ArticleForm(forms.ModelForm):
     class Meta:
@@ -12,3 +10,8 @@ class ArticleForm(forms.ModelForm):
             'content' : '내용',
             'image' : '이미지',
         }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content', ]

@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from .models import Article
-from .forms import ArticleForm
+from .forms import ArticleForm, CommentForm
+from xml.etree.ElementTree import Comment
 
 # Create your views here.
 # 목록 조회
@@ -14,8 +15,11 @@ def index(request):
 # 정보 조회
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
+    comment_form = CommentForm()
     context = {
-        'article' : article
+        'article' : article,
+        'comments' : article.comment_set.all(),
+        'comment_form' : comment_form,
     }
     return render(request, 'articles/detail.html', context)
 
@@ -52,3 +56,13 @@ def update(request, pk):
 def delete(request, pk):
     Article.objects.get(pk=pk).delete()
     return redirect('articles:index')
+
+# 댓글
+def comment_create(request, pk):
+    article = Article.objects.get(pk=pk)
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.article = article
+        comment.save()
+    return redirect('articles:detail', article.pk)
