@@ -1,13 +1,14 @@
+from dataclasses import field
 from django import forms
 from django import forms
-from .models import Article, Comment
+from .models import Article
 
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'content', 'image']
-
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['content']
+        fields = '__all__'
+        labels = {
+            'title' : '제목',
+            'content' : '내용',
+            'image' : '이미지',
+        }

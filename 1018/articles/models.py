@@ -1,12 +1,11 @@
-from re import M
 from django.db import models
 from django.forms import ImageField
 from imagekit.models import ProcessedImageField, ImageSpecField
-from imagekit.processors import Thumbnail,ResizeToFill
+from imagekit.processors import Thumbnail, ResizeToFill
 
 # Create your models here.
 class Article(models.Model):
-    title = models.CharField(max_length=80)
+    title = models.CharField(max_length=50)
     content = models.TextField()
     image = ProcessedImageField(
         upload_to = 'images/', blank=True,
@@ -14,7 +13,7 @@ class Article(models.Model):
         format='JPEG',
         options={'quality': 100}
     )
-    Thumbnail = ImageSpecField(
+    thumbnail = ImageSpecField(
         source='image',
         processors=[ResizeToFill(120, 120)],
         format='JPEG'
@@ -22,5 +21,5 @@ class Article(models.Model):
 
 class Comment(models.Model):
     content = models.TextField()
-    create_at = models.DateTimeField(auto_now_add=True),
+    created_at = models.DateTimeField(auto_now_add=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
