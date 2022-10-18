@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="mt-5">
+    <h1 class="text-center">게시판</h1>
+    <div class="d-flex justify-content-end">
+      <a href="{% url 'articles:create' %}" class="btn btn-primary my-2">작성</a>
+    </div>
+    <div class="row">
+      {% for article in articles %}
+        <div class="col-4" style="cursor: pointer;" onclick="location.href='{% url 'articles:detail' article.pk %}">
+          <div class="card">
+            {% if article.thumbnail.url %}
+              <img src="{{ article.thumbnail.url }}" alt="{{ article.thumbnail }}" class="card-img-top">
+            {% else %}
+              <img src="https://dummyimage.com/120/ffffff/ffffff.jpg" alt="" class="card-img-top">
+            {% endif %}
+            <div class="card-body">
+              <div class="card-title">{{ article.title }}</div>
+              <p class="card-text">익명</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}
