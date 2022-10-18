@@ -9,7 +9,7 @@ class Article(models.Model):
     title = models.CharField(max_length=80)
     content = models.TextField()
     image = ProcessedImageField(
-        upload_to = 'images/', blacnk=True,
+        upload_to = 'images/', blank=True,
         processors=[Thumbnail(500, 500)],
         format='JPEG',
         options={'quality': 100}
