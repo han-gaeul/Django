@@ -17,6 +17,9 @@
     </div>
     <div class="mb-5">
       <h4 class="my-3">댓글</h4>
+      {% if comments %}
+        <p>{{ comments|length }}개의 댓글</p>
+      {% endif %}
       <form action="{% url 'articles:comment_create' article.pk %}" method="POST">
         {% csrf_token %}
         {% bootstrap_form comment_form layout='inline' %}
@@ -24,7 +27,15 @@
       </form>
       <hr>
       {% for comment in comments %}
-        <p>{{ comment.content }}</p>
+        <p class="decoration-none">
+          {{ comment.content }}
+          |
+          {{ comment.created_at }}
+          {% comment %} <form action="{% url 'articles:comment_delete' comment.pk %}" method="POST">
+            {% csrf_token %}
+            {% bootstrap_button button_type="submit" content="삭제" %}
+          </form> {% endcomment %}
+        </p>
         <hr>
       {% endfor %}
     </div>
