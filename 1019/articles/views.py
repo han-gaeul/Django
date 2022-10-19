@@ -30,7 +30,10 @@ def create(request):
     if request.method == 'POST':
         article_form = ArticleForm(request.POST, request.FILES)
         if article_form.is_valid():
-            article_form.save()
+            article = article_form.save(commit=False)
+            # 로그인한 유저 -> 작성자
+            article.user = request.user
+            article.save()
             return redirect('articles:index')
     else:
         article_form = ArticleForm()
