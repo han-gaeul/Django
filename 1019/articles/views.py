@@ -46,17 +46,20 @@ def create(request):
 @login_required
 def update(request, pk):
     article = Article.objects.get(pk=pk)
-    if request.method == 'POST':
-        article_form = ArticleForm(request.POST, request.FILES, instance=article)
-        if article_form.is_valid():
-            article_form.save()
-            return redirect('articles:detail', article.pk)
+    if request.user == article.user:
+        if request.method == 'POST':
+            article_form = ArticleForm(request.POST, request.FILES, instance=article)
+            if article_form.is_valid():
+                article_form.save()
+                return redirect('articles:detail', article.pk)
+        else:
+            article_form = ArticleForm(instance=article)
+        context = {
+            'article_form' : article_form
+        }
+        return render(request, 'articles/form.html', context)
     else:
-        article_form = ArticleForm(instance=article)
-    context = {
-        'article_form' : article_form
-    }
-    return render(request, 'articles/form.html', context)
+        return redirect('articles:detail', article.pk)
 
 # 삭제
 def delete(request, pk):
