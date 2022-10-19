@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
 from xml.etree.ElementTree import Comment
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 # 목록 조회
@@ -24,6 +25,7 @@ def detail(request, pk):
     return render(request, 'articles/detail.html', context)
 
 # 생성
+@login_required
 def create(request):
     if request.method == 'POST':
         article_form = ArticleForm(request.POST, request.FILES)
@@ -38,6 +40,7 @@ def create(request):
     return render(request, 'articles/new.html', context=context)
 
 # 수정
+@login_required
 def update(request, pk):
     article = Article.objects.get(pk=pk)
     if request.method == 'POST':
