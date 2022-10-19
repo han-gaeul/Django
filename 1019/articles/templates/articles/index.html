@@ -3,9 +3,12 @@
 {% block content %}
   <div class="mt-5">
     <h1 class="text-center">게시판</h1>
-    <div class="d-flex justify-content-end">
-      <a class="btn btn-primary my-2" href="{% url 'articles:create' %}">작성</a>
-    </div>
+    {% if request.user.is_authenticated %}
+      <div class="d-flex justify-content-end">
+        <a class="btn btn-primary my-2" href="{% url 'articles:create' %}">작성</a>
+      </div>
+    {% endif %}
+
     <div class="row">
       {% for article in articles %}
         <div class="col-4 my-3" style="cursor: pointer;" onclick="location.href='{% url 'articles:detail' article.pk %}'">
