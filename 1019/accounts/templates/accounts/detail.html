@@ -5,4 +5,14 @@
   <p>{{ user.email }}
     |
     {{ user.full_name }}</p>
+  <div class="container">
+    <h3>작성글 목록</h3>
+    <p class="text-muted">{{ user.article_set.all|length }}</p>
+    {% for article in user.article_set.all %}
+      <p>
+        {{ forloop.counter }}
+        <a href="{url 'articles:detail' article.pk %}">{{ article.title }}</a>
+      </p>
+    {% endfor %}
+  </div>
 {% endblock content %}
