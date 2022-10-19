@@ -18,7 +18,9 @@
             {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{ article.title }}</h5>
-              <p class="card-text text-muted">{{ article.user.username }}</p>
+              <p class="card-text text-muted">
+                <a href="{% url 'accounts:detail' article.pk %}" class='text-muted'>{{ article.user.username }}</a>
+              </p>
             </div>
           </div>
         </div>

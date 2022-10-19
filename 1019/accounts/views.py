@@ -35,8 +35,8 @@ def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            auth_login(request, form.get_uer())
-            return redirect(request.GET.get('next' or 'articles:index'))
+            auth_login(request, form.get_user())
+            return redirect(request.GET.get('next') or 'articles:index')
     else:
         form = AuthenticationForm()
     context = {

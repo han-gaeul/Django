@@ -8,6 +8,7 @@ from imagekit.processors import Thumbnail, ResizeToFill
 class Article(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
     image = ProcessedImageField(
         upload_to = 'images/', blank=True,
         processors=[Thumbnail(500, 500)],
@@ -25,3 +26,4 @@ class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
