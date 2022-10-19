@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.forms import ImageField
 from imagekit.models import ProcessedImageField, ImageSpecField
@@ -18,6 +19,7 @@ class Article(models.Model):
         processors=[ResizeToFill(120, 120)],
         format='JPEG'
     )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 class Comment(models.Model):
     content = models.TextField()
