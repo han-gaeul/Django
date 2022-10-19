@@ -32,7 +32,7 @@ def detail(request, pk):
 
 # 로그인
 def login(request):
-    if request.mehtod == 'POST':
+    if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_uer())
