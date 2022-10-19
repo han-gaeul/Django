@@ -37,7 +37,7 @@ def create(request):
     context = {
         'article_form' : article_form
     }
-    return render(request, 'articles/new.html', context=context)
+    return render(request, 'articles/form.html', context=context)
 
 # 수정
 @login_required
@@ -53,7 +53,7 @@ def update(request, pk):
     context = {
         'article_form' : article_form
     }
-    return render(request, 'articles/update.html', context)
+    return render(request, 'articles/form.html', context)
 
 # 삭제
 def delete(request, pk):
