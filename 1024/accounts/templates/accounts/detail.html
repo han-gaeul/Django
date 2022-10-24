@@ -10,7 +10,7 @@
     {% for article in user.article_set.all %}
       <div class="row">
         <div class="col-6">
-          {% if article.image %}
+          {% if article.thumbnail %}
             <a href="{% url 'article:detail' article.pk %}">
               <p class="thumbimg">
                 <img src="{{ article.thumbnail.url }}" alt="{{ article.image }}">
