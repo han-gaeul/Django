@@ -16,7 +16,7 @@ class Article(models.Model):
         format='JPEG',
         options={'quality' : 100},
     )
-    Thumbnail = ImageSpecField(
+    thumbnail = ImageSpecField(
         source='image',
         processors=[Thumbnail(300, 300)],
         format='JPEG',

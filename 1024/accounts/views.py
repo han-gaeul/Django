@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .forms import CustomUserCreationForm, CustomUserChangeForm, ProfileForm
+from .forms import CustomUserChangeForm, CustomUserCreationForm, ProfileForm
 from .models import Profile
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
@@ -7,8 +7,8 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
 
+# Create your views here.
 # 회원 가입
 def signup(request):
     if request.method == 'POST':
@@ -50,7 +50,7 @@ def logout(request):
 
 # 비밀번호 변경
 def change_password(request):
-    if request.mehod == 'POST':
+    if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             form.save()
@@ -63,6 +63,7 @@ def change_password(request):
     return render(request, 'accounts/change_password.html', context)
 
 # 회원 정보
+@login_required
 def detail(request, pk):
     user = get_user_model().objects.get(pk=pk)
     context = {
@@ -71,12 +72,13 @@ def detail(request, pk):
     return render(request, 'accounts/detail.html', context)
 
 # 회원 정보 수정
+@login_required
 def update(request):
     if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('accounts:detail')
+            return redirect('articles:index')
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {
@@ -89,11 +91,11 @@ def profile(request):
     user = request.user
     articles = user.article_set.all()
     comments = user.comment_set.all()
-    profile = user.profile_set.all()
+    profile = user.profile_set.all()[0]
     context = {
         'articles' : articles,
         'comments' : comments,
-        'profile' : profile
+        'profile' : profile,
     }
     return render(request, 'accounts/profile.html', context)
 
@@ -110,6 +112,6 @@ def profile_update(request):
     else:
         form = ProfileForm(instance=current_user)
     context = {
-        'profile_form' : form
+        'profile_form' : form,
     }
     return render(request, 'accounts/profile_update.html', context)

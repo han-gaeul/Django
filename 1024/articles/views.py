@@ -7,11 +7,11 @@ from django.contrib.auth.decorators import login_required
 
 # 글 목록
 def index(request):
-    article = Article.objects.order_by('-pk')
+    articles = Article.objects.order_by('-pk')
     context = {
-        'article' : article
+        'articles' : articles
     }
-    return render(request, 'article/index.html', context)
+    return render(request, 'articles/index.html', context)
 
 # 글 조회
 def detail(request, pk):
@@ -85,4 +85,14 @@ def comment_delete(request, pk, comment_pk):
     comment = Comment.objects.get(pk=comment_pk)
     if request.user == comment.user:
         comment.delete()
+    return redirect('articles:detail', pk)
+
+# 좋아요
+@login_required
+def like(request, pk):
+    article = Article.objects.get(pk=pk)
+    if request.user in article.like_users.all():
+        article.like_users.remove(request.user)
+    else:
+        article.like_users.add(request.user)
     return redirect('articles:detail', pk)
