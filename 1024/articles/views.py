@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from forms import ArticleForm, CommentForm
-from .models import Article
+from .models import Article, Comment
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -78,4 +78,11 @@ def comment_create(request, pk):
         comment.article = article
         comment.user = request.user
         comment.save()
+    return redirect('articles:detail', pk)
+
+# 댓글 삭제
+def comment_delete(request, pk, comment_pk):
+    comment = Comment.objects.get(pk=comment_pk)
+    if request.user == comment.user:
+        comment.delete()
     return redirect('articles:detail', pk)
