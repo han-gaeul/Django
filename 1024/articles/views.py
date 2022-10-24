@@ -56,3 +56,14 @@ def update(request, pk):
         'article_form' : article_form
     }
     return render(request, 'articles/form.html', context)
+
+# 리뷰 삭제
+def delete(request, pk):
+    article = Article.objects.get(pk=pk)
+    if request.method == 'POST':
+        article.delete()
+        return redirect('articles:index')
+    context = {
+        'article' : article
+    }
+    return render(request, 'articles/index.html', context)
