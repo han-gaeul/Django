@@ -7,4 +7,5 @@ app_name = 'articles'
 urlpatterns = [
     path('', views.index, name='index'),
     path('<int:pk/>', views.detail, name='detial'),
+    path('create/', views.create, name='create'),
 ]

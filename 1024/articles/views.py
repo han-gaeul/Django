@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
-from articles.forms import CommentForm
+from articles.forms import ArticleForm, CommentForm
 from .models import Article
 
 # Create your views here.
@@ -23,3 +23,19 @@ def detail(request, pk):
         'comment_form' : comment_form
     }
     return render(request, 'articles/detail.html', context)
+
+# 글 작성
+def create(request):
+    if request.method == 'POST':
+        article_form = ArticleForm(request.POST, request.FILES)
+        if article_form.is_valid():
+            article = article_form.save(commit=False)
+            article.user = request.user
+            article.save()
+            return redirect('articles:index')
+    else:
+        article_form = ArticleForm()
+    context = {
+        'article_form' : article_form
+    }
+    return render(request, 'articles/form.html', context)
