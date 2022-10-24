@@ -83,3 +83,16 @@ def update(request):
         'form' : form
     }
     return render(request, 'accounts/update.html', context)
+
+# 프로필
+def profile(request):
+    user = request.user
+    articles = user.articles_set.all()
+    comments = user.comment_set.all()
+    profile = user.profile_set.all()
+    context = {
+        'articles' : articles,
+        'comments' : comments,
+        'profile' : profile
+    }
+    return render(request, 'accounts/profile.html', context)
