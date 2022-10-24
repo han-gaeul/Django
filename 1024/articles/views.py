@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from articles.forms import CommentForm
 from .models import Article
 
 # Create your views here.
@@ -10,3 +12,14 @@ def index(request):
         'article' : article
     }
     return render(request, 'article/index.html', context)
+
+# 글 조회
+def detail(request, pk):
+    article = Article.objects.get(pk=pk)
+    comment_form = CommentForm()
+    context = {
+        'article' : article,
+        'comments' : article.comment_set.all(),
+        'comment_form' : comment_form
+    }
+    return render(request, 'articles/detail.html', context)
