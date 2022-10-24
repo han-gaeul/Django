@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
-
-from articles.forms import ArticleForm, CommentForm
+from forms import ArticleForm, CommentForm
 from .models import Article
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -25,6 +25,7 @@ def detail(request, pk):
     return render(request, 'articles/detail.html', context)
 
 # 글 작성
+@login_required
 def create(request):
     if request.method == 'POST':
         article_form = ArticleForm(request.POST, request.FILES)
@@ -35,6 +36,22 @@ def create(request):
             return redirect('articles:index')
     else:
         article_form = ArticleForm()
+    context = {
+        'article_form' : article_form
+    }
+    return render(request, 'articles/form.html', context)
+
+# 리뷰 수정
+@login_required
+def update(request, pk):
+    article = Article.objects.get(pk=pk)
+    if request.method == 'POST':
+        article_form = ArticleForm(request.POST, request.FILES, instance=article)
+        if article_form.is_valid():
+            article_form.save()
+            return redirect('articles:detail', article.pk)
+    else:
+        article_form = ArticleForm(instance=article)
     context = {
         'article_form' : article_form
     }
