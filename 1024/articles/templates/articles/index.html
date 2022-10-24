@@ -2,4 +2,50 @@
 
 {% block content %}
   <h1 class="text-center">게시판</h1>
+  <div class="d-flex justify-content-end">
+    <a href="{% url 'articles:create' %}" class="btn btn-primary my-3">
+      <i class="fa-solid fa-pen-to-square"></i>
+    </a>
+  </div>
+
+  <div class="row">
+    {% for article in articles %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <a href="{% url 'articles:detail' article.pk %}">
+          <div class="card">
+            <div class="card-body">
+              <div class="thumb">
+                {% if article.thumbnail %}
+                  <img src="{{ article.thumbnail.url }}" alt="{{ article.thumbnail }}">
+                {% else %}
+                  <img src="https://dummyimage.com/600x400/fff/fff" alt="thumbnail">
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </a>
+        <div class="d-flex mt-2">
+          <div class="mt-2">
+            <a href="{% url 'accounts:profile' %}">
+              {% for profile_se in article.user.profile_set.all %}
+                {% if profile_se.thmbnail %}
+                  <img src="{{ profile_se.image.url }}" alt="{{ profile_se.image }}" style="width: 35px; height: 35px; border-radius: 500px">
+                {% else %}
+                  <img src="https://i.pinimg.com/originals/f1/5c/9e/f15c9e2ce52a1735081be72dcec2e97d.jpg" alt="image" style="width: 35px; height: 35px; border-radius: 500px">
+                {% endif %}
+              {% endfor %}
+            </a>
+          </div>
+          <div class="mx-2">
+            <a href="{% url 'articles:detail' article.pk %}">
+              <h5 class="card-title">{{ article.title }}</h5>
+            </a>
+            <a href="{% url 'accounts:detail' artice.user.pk %}">
+              <span class="text-muted">{{ article.user.username }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock content %}
