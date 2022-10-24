@@ -67,3 +67,15 @@ def delete(request, pk):
         'article' : article
     }
     return render(request, 'articles/index.html', context)
+
+# 댓글 작성
+@login_required
+def comment_create(request, pk):
+    article = Article.objects.get(pk=pk)
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.article = article
+        comment.user = request.user
+        comment.save()
+    return redirect('articles:detail', pk)
