@@ -115,3 +115,13 @@ def profile_update(request):
         'profile_form' : form,
     }
     return render(request, 'accounts/profile_update.html', context)
+
+# 팔로우
+@login_required
+def follow(request, pk):
+    user = get_user_model().objects.get(pk=pk)
+    if request.user in user.followers.all():
+        user.followers.remove(request.user)
+    else:
+        user.followers.add(request.user)
+    return redirect('accounts:detail', pk)
