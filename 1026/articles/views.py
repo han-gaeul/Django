@@ -6,8 +6,8 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 # 글 목록
-def index(request):
-    articles = Article.objects.order_by('-pk')
+def index(request, pk):
+    articles = get_object_or_404(Article, pk=pk)
     context = {
         'articles' : articles
     }
@@ -45,7 +45,7 @@ def create(request):
 # 리뷰 수정
 @login_required
 def update(request, pk):
-    article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=pk)
     if request.method == 'POST':
         article_form = ArticleForm(request.POST, request.FILES, instance=article)
         if article_form.is_valid():
@@ -72,7 +72,7 @@ def delete(request, pk):
 # 댓글 작성
 @login_required
 def comment_create(request, pk):
-    article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=pk)
     comment_form = CommentForm(request.POST)
     if comment_form.is_valid():
         comment = comment_form.save(commit=False)
@@ -91,7 +91,7 @@ def comment_delete(request, pk, comment_pk):
 # 좋아요
 @login_required
 def like(request, pk):
-    article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=pk)
     if request.user in article.like_users.all():
         article.like_users.remove(request.user)
     else:

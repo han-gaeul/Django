@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .forms import CustomUserChangeForm, CustomUserCreationForm, ProfileForm
 from .models import Profile
 from django.contrib.auth import login as auth_login
@@ -65,7 +65,7 @@ def change_password(request):
 # 회원 정보
 @login_required
 def detail(request, pk):
-    user = get_user_model().objects.get(pk=pk)
+    user = get_object_or_404(get_user_model(), pk=pk)
     context = {
         'user' : user,
     }
@@ -119,7 +119,7 @@ def profile_update(request):
 # 팔로우
 @login_required
 def follow(request, pk):
-    user = get_user_model().objects.get(pk=pk)
+    user = get_object_or_404(get_user_model(), pk=pk)
     if request.user in user.followers.all():
         user.followers.remove(request.user)
     else:
