@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+  <div class="d-flex align-items-center">
+    <div>
+      {% if profile.image %}
+        <img src="{{ profile.image.url }}" alt="" style="width: 100px; height: 100px; border-radius: 500px">
+      {% else %}
+        <img src="https://i.pinimg.com/originals/f1/5c/9e/f15c9e2ce52a1735081be72dcec2e97d.jpg" alt="" style="width: 100px; height: 100px; border-radius: 500px">
+      {% endif %}
+    </div>
+    <div>
+      <div class="d-flex align-items-center">
+        <h1 class="mx-3">{{ user.username }}</h1>
+        <div>
+          {% if request.user != user %}
+            <a href="{% url 'accounts:follow' user.pk %}" class="btn btn-light">
+              {% if request.user in user.followers.all %}
+                팔로잉
+              {% else %}
+                팔로우
+              {% endif %}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="d-flex mx-3">
+        <div class="mx-1">
+          팔로워
+          {{ user.followers.count }}
+        </div>
+        <div class="mx-1">
+          팔로우
+          {{ user.followings.count }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <div class="col-6">
+      <p class="mt-3">작성한 게시글 :
+        {{ user.article_set.count }}개</p>
+      {% for article in user.article_set.all %}
+        {% if article.image %}
+          <div class="row">
+            <a href="{% url 'articles:detail' article.pk %}">
+              <p class="thumbimg">
+                <img src="{{ article.thumbnail.url }}" alt="{{ article.image }}">
+              </p>
+              <p>{{ article.title }}</p>
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <div class="col-6">
+      <div>
+        <p class="mt-3">작성한 댓글 :
+          {{ user.comment_set.count }}개</p>
+        {% for comment in user.comment_set.all %}
+          <p>{{ forloop.counter }}
+            <a href="{% url 'article:detail' comment.article_id %}">{{ comment.content }}</a>
+          </p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary mt-5" type="submit" onclick="location.href='{% url 'articles:index' %}">돌아가기</button>
+{% endblock content %}
