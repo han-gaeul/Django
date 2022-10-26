@@ -80,7 +80,11 @@ def comment_create(request, pk):
         comment.article = article
         comment.user = request.user
         comment.save()
-    return redirect('articles:detail', pk)
+        context = {
+            'content' : comment.content,
+            'userName' : comment.user.username
+        }
+    return JsonResponse(context)
 
 # 댓글 삭제
 def comment_delete(request, pk, comment_pk):
