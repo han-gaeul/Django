@@ -3,12 +3,14 @@ from .forms import ArticleForm, CommentForm
 from .models import Article, Comment
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.views.decorators.http import require_safe
 
 # Create your views here.
 
 # 글 목록
-def index(request, pk):
-    articles = get_object_or_404(Article, pk=pk)
+@require_safe
+def index(request):
+    articles = Article.objects.order_by('-pk')
     context = {
         'articles' : articles
     }
