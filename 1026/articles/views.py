@@ -75,6 +75,7 @@ def delete(request, pk):
 # 댓글 작성
 @login_required
 def comment_create(request, pk):
+    print(request.POST)
     article = get_object_or_404(Article, pk=pk)
     comment_form = CommentForm(request.POST)
     if comment_form.is_valid():
@@ -83,10 +84,10 @@ def comment_create(request, pk):
         comment.user = request.user
         comment.save()
         context = {
-            'content' : comment.content,
-            'userName' : comment.user.username
+            'content': comment.content,
+            'userName': comment.user.username
         }
-    return JsonResponse(context)
+        return JsonResponse(context)
 
 # 댓글 삭제
 def comment_delete(request, pk, comment_pk):
@@ -99,14 +100,11 @@ def comment_delete(request, pk, comment_pk):
 @login_required
 def like(request, pk):
     article = get_object_or_404(Article, pk=pk)
-    if request.user in article.like_users.all():
+    if request.user in article.like_users.all(): 
         article.like_users.remove(request.user)
         is_liked = False
     else:
         article.like_users.add(request.user)
         is_liked = True
-    context = {
-        'isLiked' : is_liked,
-        'likeCount' : article.like_users.count()
-    }
+    context = {'isLiked': is_liked, 'likeCount': article.like_users.count()}
     return JsonResponse(context)
