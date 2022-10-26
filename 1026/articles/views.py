@@ -18,7 +18,6 @@ def index(request):
 
 # 글 조회
 def detail(request, pk):
-    # article = Article.objects.get(pk=pk)
     article = get_object_or_404(Article, pk=pk)
     comment_form = CommentForm()
     context = {
